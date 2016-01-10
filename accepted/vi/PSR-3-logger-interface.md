@@ -1,11 +1,11 @@
 Logger Interface
 ================
 
-This document describes a common interface for logging libraries.
+Tài liệu này mô tả một quy chuẩn cho các thư viện người dùng khai thác.
 
-The main goal is to allow libraries to receive a `Psr\Log\LoggerInterface`
-object and write logs to it in a simple and universal way. Frameworks
-and CMSs that have custom needs MAY extend the interface for their own
+Mục tiêu chính là cho phép các thư viện có thể nhận được một `Psr\Log\LoggerInterface`
+đối tượng và ghi lại nhật kí 1 cách đơn giản và phổ biến. Frameworks
+và CMSs that have custom needs MAY extend the interface for their own
 purpose, but SHOULD remain compatible with this document. This ensures
 that the third-party libraries an application uses can write to the
 centralized application logs.
