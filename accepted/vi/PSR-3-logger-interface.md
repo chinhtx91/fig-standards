@@ -5,64 +5,60 @@ Tài liệu này mô tả một quy chuẩn cho các thư viện người dùng 
 
 Mục tiêu chính là cho phép các thư viện có thể nhận được một `Psr\Log\LoggerInterface`
 đối tượng và ghi lại nhật kí 1 cách đơn giản và phổ biến. Frameworks
-và CMSs that have custom needs MAY extend the interface for their own
-purpose, but SHOULD remain compatible with this document. This ensures
-that the third-party libraries an application uses can write to the
-centralized application logs.
+và CMSs có tùy chỉnh cần PHẢI mở rộng giao diện người dùng cho mục đích riêng,
+tuy nhiên, NÊN tương thích với tài liệu này. Điều này đảm bảo
+các thư viện ứng dụng của người sử dụng bên thứ 3 có thể ghi lại các bản ghi tập trung.
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in [RFC 2119][].
+Các ừ khóa "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", và "OPTIONAL" trong tài liệu này đã được giải thích trong 
+[RFC 2119][].
 
-The word `implementor` in this document is to be interpreted as someone
-implementing the `LoggerInterface` in a log-related library or framework.
-Users of loggers are referred to as `user`.
+từ `implementor` trong văn bản này  có nghĩa là 1 người nào đó đã thực hiện `LoggerInterface` trong 1 đăng nhập đã liên kết 
+thư viện or framework.
+Những người dùng của những lần đăng nhập được gọi là `user`.
 
 [RFC 2119]: http://tools.ietf.org/html/rfc2119
 
-1. Specification
+1. Đặc điểm kỹ thuật
 -----------------
 
-### 1.1 Basics
+### 1.1 Khái niệm cơ bản.
 
-- The `LoggerInterface` exposes eight methods to write logs to the eight
+- The `LoggerInterface` đã thể hiện 8 phương thức ghi lại nhật kí gồm 8 mức độ
   [RFC 5424][] levels (debug, info, notice, warning, error, critical, alert,
   emergency).
 
-- A ninth method, `log`, accepts a log level as first argument. Calling this
-  method with one of the log level constants MUST have the same result as
-  calling the level-specific method. Calling this method with a level not
-  defined by this specification MUST throw a `Psr\Log\InvalidArgumentException`
-  if the implementation does not know about the level. Users SHOULD NOT use a
-  custom level without knowing for sure the current implementation supports it.
+- Phương thức thứ 9, `log`, đã được chấp nhận 1 mức độ đăng nhập lập luận đầu tiên.
+- Phương thức này với 1 mức độ đăng nhập cố định PHẢI có kết quả như 1 phương thức đặc biệt.\
+- Phương thức này with không được quy định mức độ vì đặc tả PHẢI loại bỏ 1 `Psr\Log\InvalidArgumentException`
+  nếu việc thực hiện không biết được thông tin mức độ. Những  người dùng KHÔNG NÊN sử dụng câp độ tùy chỉnh 
+ nếu không biết chắc chắn những hỗ trợ hiện tại của nó
 
 [RFC 5424]: http://tools.ietf.org/html/rfc5424
 
-### 1.2 Message
+### 1.2 Lời nhắn
 
-- Every method accepts a string as the message, or an object with a
-  `__toString()` method. Implementors MAY have special handling for the passed
-  objects. If that is not the case, implementors MUST cast it to a string.
+- Mỗi phương thức được chấp nhận cùng với 1 lời nhắn, hoặc 1 đối tượng
+  `__toString()` method. Những người thực hiện PHẢI có xử lí đặc biệt để cho các đối tượng được thông qua.
+Trong trường hợp không có, Phải đặt nó trong 1 chuỗi.
 
-- The message MAY contain placeholders which implementors MAY replace with
-  values from the context array.
+- Lời nhắn phải chứa (placeholders) which những người thực hiện PHẢI thay thế với giá trị trong mảng.
 
-  Placeholder names MUST correspond to keys in the context array.
+  (placeholders) những cái tên PHẢI tương ứng với những khóa trong mảng.
 
-  Placeholder names MUST be delimited with a single opening brace `{` and
-  a single closing brace `}`. There MUST NOT be any whitespace between the
-  delimiters and the placeholder name.
+  (placeholders) những tên PHẢI được phân cách với 1 đấu mở '{' và 1 dấu đóng '}'
+ .không được có khoảng trắng giữa các the
+  delimiters and the (placeholders) name.
 
-  Placeholder names SHOULD be composed only of the characters `A-Z`, `a-z`,
-  `0-9`, underscore `_`, and period `.`. The use of other characters is
-  reserved for future modifications of the placeholders specification.
+  (placeholders) các tên được cấu tạo NÊN chỉ gồm các kí tự `A-Z`, `a-z`,
+  `0-9`, underscore `_`, and period `.`. Các kí tự khác chỉ rành riêng cho thay đổi trong tương lai của the (placeholders) specification.
 
-  Implementors MAY use placeholders to implement various escaping strategies
-  and translate logs for display. Users SHOULD NOT pre-escape placeholder
+  Những người thực hiện PHẢI sử dụng (placeholders) để triển khai various escaping strategies
+  and thay đổi các phiên đăng nhập cho hiển thị. Những người sự dụng KHÔNG NÊN  pre-escape placeholder
   values since they can not know in which context the data will be displayed.
 
-  The following is an example implementation of placeholder interpolation
-  provided for reference purposes only:
+  Tiếp theo là ví dụ của placeholder thực hiện
+  đã cung cấp để người dùng tham khảo:
 
   ```php
   /**
@@ -90,12 +86,12 @@ Users of loggers are referred to as `user`.
   echo interpolate($message, $context);
   ```
 
-### 1.3 Context
+### 1.3 Ngữ cảnh
 
-- Every method accepts an array as context data. This is meant to hold any
-  extraneous information that does not fit well in a string. The array can
-  contain anything. Implementors MUST ensure they treat context data with
-  as much lenience as possible. A given value in the context MUST NOT throw
+- Mỗi phương thức được chấp nhận 1 mảng dữ liệu. Điều này chính là giữ lại 
+  thông tin không liên quan đó làm rõ những điều không phù hợp trong chuỗi.
+Mảng có thể chứa bất cứ thứ gì. Nhũng người thực hiện PHẢI chăc chắn họ xử lí đữ liệu
+  cũng như much lenience as possible. 1 gia trị được đưa ra PHẢI không có lỗi phát sinh 
   an exception nor raise any php error, warning or notice.
 
 - If an `Exception` object is passed in the context data, it MUST be in the
