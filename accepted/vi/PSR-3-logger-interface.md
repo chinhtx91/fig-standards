@@ -124,11 +124,11 @@ phải là cách tiếp cận tốt hơn nếu dữ liêu sáng tạo quá tốn
 
 - `Psr\Log\LogLevel` là lớp giữ 1 hằng số trong 8 cấp độ.
 
-2. Package
+2. Kết luận
 ----------
 
-The interfaces and classes described as well as relevant exception classes
-and a test suite to verify your implementation is provided as part of the
+Các giao diện và các lớp đã diễn tả cũng như các lớp ngoại lệ hợp lí với 1 kiểm thử phần mềm
+để xác nhận việc thực hiện cảu bạn là đã cung cấp 1 phần cho
 [psr/log](https://packagist.org/packages/psr/log) package.
 
 3. `Psr\Log\LoggerInterface`
