@@ -94,36 +94,35 @@ Mảng có thể chứa bất cứ thứ gì. Nhũng người thực hiện PH�
   cũng như much lenience as possible. 1 gia trị được đưa ra PHẢI không có lỗi phát sinh 
   an exception nor raise any php error, warning or notice.
 
-- If an `Exception` object is passed in the context data, it MUST be in the
-  `'exception'` key. Logging exceptions is a common pattern and this allows
-  implementors to extract a stack trace from the exception when the log
-  backend supports it. Implementors MUST still verify that the `'exception'`
-  key is actually an `Exception` before using it as such, as it MAY contain
-  anything.
+- Nếu 1 đối tượng `Exception` được thông qua trong 1 đoạn dữ liệu, nó PHẢI là khóa
+  `'exception'`. Đăng nhập ngoại lệ là 1 kiểu phổ biến và đây là những sự cho phép
+  những người thực hiện trích xuất 1 lớp từ ngoại lệ khi đăng nhập
+  phụ trợ hỗ trợ đó. Những người thực hiện PHẢI kiểm chứng `'exception'`
+  khóa là hiện tại 1 `Exception` trước khi dùng nó như vật, cũng như nó PHẢI chứa bất cứ thứ gì.
 
-### 1.4 Helper classes and interfaces
+### 1.4 Lớp trợ giúp và các giao diện người dùng
 
-- The `Psr\Log\AbstractLogger` class lets you implement the `LoggerInterface`
-  very easily by extending it and implementing the generic `log` method.
-  The other eight methods are forwarding the message and context to it.
+- lớp `Psr\Log\AbstractLogger` cho phép bạn thực hiện `LoggerInterface`
+  rất dễ ràng vì nó dễ mở rộng và đang thực hiện phương thức `log` tổng quát.
+  8 phương thức khác là tin nhắn chuyển tiếp và bối cảnh đến nó.
 
-- Similarly, using the `Psr\Log\LoggerTrait` only requires you to
-  implement the generic `log` method. Note that since traits can not implement
-  interfaces, in this case you still have to implement `LoggerInterface`.
+- Tương tự như vậy, việc sử dụng `Psr\Log\LoggerTrait` chỉ yêu cầu bạn đến
+  triển khai các phương thức`log` chung. Lưu ý rằng, từ những đặc điểm đó không thể triển khai
+  giao diện người dùng, trong trường hợp này bạn còn phải có triển khai đến `LoggerInterface`.
 
-- The `Psr\Log\NullLogger` is provided together with the interface. It MAY be
-  used by users of the interface to provide a fall-back "black hole"
-  implementation if no logger is given to them. However conditional logging
-  may be a better approach if context data creation is expensive.
+- `Psr\Log\NullLogger` đã cung cấp cùng với giao diện người dùng. Nó PHẢI 
+  được sử dụng bởi người dùng của giao diện để cung cấp 1 fall-back "black hole"
+  thực hiện nếu không những người đăng nhập vào đưa đến họ. Tuy nhiên, có điều kiện là những đăng nhập
+phải là cách tiếp cận tốt hơn nếu dữ liêu sáng tạo quá tốn kém.
 
-- The `Psr\Log\LoggerAwareInterface` only contains a
-  `setLogger(LoggerInterface $logger)` method and can be used by frameworks to
-  auto-wire arbitrary instances with a logger.
+- `Psr\Log\LoggerAwareInterface` chỉ chứa 1 phương thức
+  `setLogger(LoggerInterface $logger)` và có thể được sử dụng bởi frameworks to
+  auto-wire bất kì trường hợp nào với 1 lần đăng nhập.
 
-- The `Psr\Log\LoggerAwareTrait` trait can be used to implement the equivalent
-  interface easily in any class. It gives you access to `$this->logger`.
+- `Psr\Log\LoggerAwareTrait` đặc tính có thể đã được sử dụng để triển khai tương ứng giao diện đơn giản trong bất kì lớp nào.
+  Nếu bạn kết nối đến `$this->logger`.
 
-- The `Psr\Log\LogLevel` class holds constants for the eight log levels.
+- `Psr\Log\LogLevel` là lớp giữ 1 hằng số trong 8 cấp độ.
 
 2. Package
 ----------
